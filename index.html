@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prevención de Vishing - Fraudes Telefónicos</title>
+    <style>
+        /* Estilos generales */
+        :root {
+            --primary-color: #3a6ea5;
+            --secondary-color: #ff6b6b;
+            --accent-color: #6bff9e;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://vnx.partners/wp-content/uploads/2024/01/Vishing-o-que-e-e-como-se-proteger.jpg') center/cover no-repeat;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            animation: fadeIn 1.5s ease-in;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+        }
+        
+        /* Secciones */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            opacity: 0.8;
+        }
+        
+        /* Ejemplos prácticos */
+        .examples-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .example-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .example-content {
+            padding: 20px;
+        }
+        
+        .example-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .audio-container {
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        audio {
+            width: 100%;
+        }
+        
+        /* Test interactivo */
+        .test-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .question.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .question h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .options {
+            margin-bottom: 20px;
+        }
+        
+        .option {
+            display: block;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .option.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .test-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .test-result {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        /* Videos */
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Prevención */
+        .prevention-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .prevention-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .prevention-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .prevention-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .prevention-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-icons {
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Media queries */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                background-color: var(--primary-color);
+                width: 100%;
+                flex-direction: column;
+                padding: 20px 0;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+                text-align: center;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AntiVishing</div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#ejemplos">Ejemplos</a></li>
+                    <li><a href="#test">Test</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                    <li><a href="#prevencion">Prevención</a></li>
+                </ul>
+                <div class="mobile-menu">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <h1>No caigas en la trampa: Aprende a detectar fraudes telefónicos</h1>
+        <p>Este sitio te ayudará a identificar y evitar fraudes telefónicos de manera práctica</p>
+        <a href="#" class="btn" id="download-guide">Descarga la guía rápida (PDF)</a>
+    </section>
+
+    <!-- Ejemplos Prácticos -->
+    <section id="ejemplos">
+        <div class="container">
+            <h2 class="section-title">Ejemplos Prácticos</h2>
+            <p class="section-subtitle">Escucha estos ejemplos de llamadas fraudulentas simuladas para aprender a reconocerlas</p>
+            
+            <div class="examples-container">
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3 class="example-title">Estafa Bancaria</h3>
+                        <p>En esta llamada, el estafador se hace pasar por un ejecutivo bancario y alerta sobre una supuesta actividad sospechosa en tu cuenta. Buscan que des información confidencial para "verificar" tu identidad.</p>
+                        <div class="audio-container">
+                            <audio controls>
+                                <source src="#" type="audio/mpeg">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+                        </div>
+                        <p><strong>Táctica utilizada:</strong> Creación de urgencia y miedo para que actúes sin pensar, solicitando datos personales bajo el pretexto de "seguridad".</p>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3 class="example-title">Soporte Técnico Falso</h3>
+                        <p>En esta llamada, el estafador finge ser un técnico de soporte informático que ha detectado "virus" en tu computadora y necesita acceso remoto para solucionarlo.</p>
+                        <div class="audio-container">
+                            <audio controls>
+                                <source src="#" type="audio/mpeg">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+                        </div>
+                        <p><strong>Táctica utilizada:</strong> Aprovechamiento del desconocimiento técnico para infundir miedo y obtener acceso a tus dispositivos y datos personales.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-content">
+                        <h3 class="example-title">Fraude Académico</h3>
+                        <p>En esta llamada, el estafador se hace pasar por un administrativo de tu universidad indicando que hay un problema con tu matrícula o pago y necesita confirmar tus datos bancarios.</p>
+                        <div class="audio-container">
+                            <audio controls>
+                                <source src="#" type="audio/mpeg">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+                        </div>
+                        <p><strong>Táctica utilizada:</strong> Manipulación emocional al amenazar con la pérdida de tu estatus académico si no resuelves el problema inmediatamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Interactivo -->
+    <section id="test">
+        <div class="container">
+            <h2 class="section-title">Test: ¿Sabrías detectar un fraude telefónico?</h2>
+            <p class="section-subtitle">Pon a prueba tus conocimientos con estas situaciones</p>
+            
+            <div class="test-container">
+                <div id="question1" class="question active">
+                    <h3>Pregunta 1: Recibes una llamada donde te dicen:</h3>
+                    <p>"Buenos días, le llamo del departamento de seguridad de su banco. Hemos detectado un movimiento sospechoso en su cuenta. Para verificar su identidad y bloquear la transacción, necesito que me confirme su número de tarjeta y el código de seguridad."</p>
+                    <div class="options">
+                        <div class="option" data-correct="false">A) Proporciono los datos porque quiero proteger mi cuenta.</div>
+                        <div class="option" data-correct="true">B) Cuelgo y llamo directamente al número oficial de mi banco.</div>
+                        <div class="option" data-correct="false">C) Doy solo parte de la información para verificar si es legítimo.</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div id="question2" class="question">
+                    <h3>Pregunta 2: Te llama alguien diciendo:</h3>
+                    <p>"Soy técnico de Microsoft. Nuestro sistema ha detectado que su computadora está infectada con un virus peligroso. Necesito que descargue este software para poder solucionar el problema de forma remota."</p>
+                    <div class="options">
+                        <div class="option" data-correct="false">A) Descargo el software porque no quiero perder mis archivos.</div>
+                        <div class="option" data-correct="false">B) Le pido más detalles sobre el virus para confirmar.</div>
+                        <div class="option" data-correct="true">C) Cuelgo la llamada porque Microsoft no realiza este tipo de llamadas no solicitadas.</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div id="question3" class="question">
+                    <h3>Pregunta 3: Recibes una llamada donde te informan:</h3>
+                    <p>"Le llamamos de la universidad para informarle que hay un problema con su pago de matrícula. Si no lo resolvemos hoy mismo, perderá su inscripción. Necesitamos verificar sus datos bancarios para procesar el reembolso y luego hacer un nuevo cargo."</p>
+                    <div class="options">
+                        <div class="option" data-correct="true">A) Cuelgo y contacto directamente con la oficina de administración de la universidad.</div>
+                        <div class="option" data-correct="false">B) Doy mis datos para no perder mi inscripción.</div>
+                        <div class="option" data-correct="false">C) Pregunto más detalles sobre el problema para verificar si es real.</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="test-controls">
+                    <button id="prev-btn" class="btn" style="background-color: #6c757d; display: none;">Anterior</button>
+                    <button id="next-btn" class="btn">Siguiente</button>
+                </div>
+                
+                <div id="test-result" class="test-result"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section id="videos">
+        <div class="container">
+            <h2 class="section-title">Videos Informativos</h2>
+            <p class="section-subtitle">Aprende visualmente sobre las técnicas de vishing y cómo protegerte</p>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/nd-7aHJ-vRQ" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prevención -->
+    <section id="prevencion">
+        <div class="container">
+            <h2 class="section-title">Consejos de Prevención</h2>
+            <p class="section-subtitle">Implementa estas estrategias para protegerte de los fraudes telefónicos</p>
+            
+            <div class="prevention-container">
+                <div class="prevention-card">
+                    <div class="prevention-icon">🔒</div>
+                    <h3 class="prevention-title">Nunca compartas información personal</h3>
+                    <p>Las entidades legítimas nunca te pedirán información confidencial completa por teléfono. No des contraseñas, números de tarjeta completos, códigos de seguridad o información bancaria.</p>
+                </div>
+                
+                <div class="prevention-card">
+                    <div class="prevention-icon">🔍</div>
+                    <h3 class="prevention-title">Verifica siempre la identidad del llamante</h3>
+                    <p>Cuelga y llama directamente al número oficial de la entidad (que aparece en su sitio web oficial o en tu tarjeta) para confirmar si la comunicación es legítima.</p>
+                </div>
+                
+                <div class="prevention-card">
+                    <div class="prevention-icon">⏱️</div>
+                    <h3 class="prevention-title">Desconfía de la urgencia</h3>
+                    <p>Los estafadores suelen crear sensación de urgencia para que actúes sin pensar. Tómate tu tiempo para verificar y no cedas ante la presión.</p>
+                </div>
+                
+                <div class="prevention-card">
+                    <div class="prevention-icon">❌</div>
+                    <h3 class="prevention-title">Cuelga ante cualquier sospecha</h3>
+                    <p>Si algo no te parece correcto o te sientes incómodo, cuelga inmediatamente. Es mejor prevenir que lamentar pérdidas económicas.</p>
+                </div>
+                
+                <div class="prevention-card">
+                    <div class="prevention-icon">📱</div>
+                    <h3 class="prevention-title">No sigas instrucciones telefónicas para instalaciones</h3>
+                    <p>Nunca instales software, aplicaciones o accedas a enlaces que te proporcionen por teléfono, especialmente si son para "solucionar problemas" o "verificar identidad".</p>
+                </div>
+                
+                <div class="prevention-card">
+                    <div class="prevention-icon">📢</div>
+                    <h3 class="prevention-title">Reporta los intentos de fraude</h3>
+                    <p>Informa a las autoridades, a tu banco y a las plataformas correspondientes sobre cualquier intento de estafa que recibas para ayudar a prevenir futuros fraudes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">AntiVishing</div>
+                <div class="footer-links">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#ejemplos">Ejemplos</a>
+                    <a href="#test">Test</a>
+                    <a href="#videos">Videos</a>
+                    <a href="#prevencion">Prevención</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#">📘</a>
+                    <a href="#">📱</a>
+                    <a href="#">📸</a>
+                </div>
+                <p>&copy; 2025 AntiVishing - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Cerrar menú móvil si está abierto
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+        
+        // Test interactivo
+        const questions = document.querySelectorAll('.question');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const testResult = document.getElementById('test-result');
+        let currentQuestion = 0;
+        let score = 0;
+        
+        // Función para mostrar la pregunta actual
+        function showQuestion(questionIndex) {
+            questions.forEach((question, index) => {
+                if (index === questionIndex) {
+                    question.classList.add('active');
+                } else {
+                    question.classList.remove('active');
+                }
+            });
+            
+            // Mostrar/ocultar botones de navegación
+            if (questionIndex === 0) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'block';
+            }
+            
+            if (questionIndex === questions.length - 1) {
+                nextBtn.textContent = 'Ver resultado';
+            } else {
+                nextBtn.textContent = 'Siguiente';
+            }
+        }
+        
+        // Evento para botón anterior
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        // Evento para botón siguiente
+        nextBtn.addEventListener('click', () => {
+            const activeQuestion = document.querySelector('.question.active');
+            const selectedOption = activeQuestion.querySelector('.option.selected');
+            const feedback = activeQuestion.querySelector('.feedback');
+            
+            // Verificar si se ha seleccionado una opción
+            if (!selectedOption && nextBtn.textContent !== 'Ver resultado') {
+                feedback.textContent = 'Por favor, selecciona una opción.';
+                feedback.className = 'feedback incorrect';
+                feedback.style.display = 'block';
+                return;
+            }
+            
+            // Si estamos en la última pregunta y se hace clic en "Ver resultado"
+            if (currentQuestion === questions.length - 1 && nextBtn.textContent === 'Ver resultado') {
+                showResult();
+                return;
+            }
+            
+            // Avanzar a la siguiente pregunta
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        // Evento para seleccionar opciones
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Deseleccionar todas las opciones de la pregunta actual
+                const activeQuestion = this.closest('.question');
+                activeQuestion.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Seleccionar la opción actual
+                this.classList.add('selected');
+                
+                // Mostrar retroalimentación
+                const isCorrect = this.getAttribute('data-correct') === 'true';
+                const feedback = activeQuestion.querySelector('.feedback');
+                
+                if (isCorrect) {
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '¡Correcto! Esta es la acción más segura para protegerte del vishing.';
+                    if (!this.hasBeenScored) {
+                        score++;
+                        this.hasBeenScored = true;
+                    }
+                } else {
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = 'Incorrecto. Esta acción podría ponerte en riesgo de ser víctima de fraude.';
+                }
+                
+                feedback.style.display = 'block';
+            });
+        });
+        
+        // Función para mostrar el resultado final
+        function showResult() {
+            questions.forEach(question => {
+                question.style.display = 'none';
+            });
+            
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            
+            testResult.style.display = 'block';
+            
+            let message = '';
+            if (score === questions.length) {
+                message = `<h3>¡Felicidades! Tu puntuación: ${score}/${questions.length}</h3>
+                <p>Tienes excelentes habilidades para detectar fraudes telefónicos. ¡Sigue así y comparte este conocimiento con tus amigos y familiares!</p>`;
+                testResult.style.backgroundColor = '#d4edda';
+                testResult.style.color = '#155724';
+                testResult.style.border = '1px solid #c3e6cb';
+            } else if (score >= questions.length / 2) {
+                message = `<h3>¡Buen trabajo! Tu puntuación: ${score}/${questions.length}</h3>
+                <p>Tienes buenos conocimientos para detectar vishing, pero siempre puedes mejorar. Repasa la sección de prevención para fortalecer tus habilidades.</p>`;
+                testResult.style.backgroundColor = '#fff3cd';
+                testResult.style.color = '#856404';
+                testResult.style.border = '1px solid #ffeeba';
+            } else {
+                message = `<h3>¡Necesitas practicar más! Tu puntuación: ${score}/${questions.length}</h3>
+                <p>Estás en riesgo de caer en fraudes telefónicos. Te recomendamos revisar detenidamente todas las secciones de este sitio para mejorar tus habilidades de detección.</p>`;
+                testResult.style.backgroundColor = '#f8d7da';
+                testResult.style.color = '#721c24';
+                testResult.style.border = '1px solid #f5c6cb';
+            }
+            
+            testResult.innerHTML = message + '<button id="restart-btn" class="btn" style="margin-top: 20px;">Reiniciar Test</button>';
+            
+            document.getElementById('restart-btn').addEventListener('click', () => {
+                score = 0;
+                currentQuestion = 0;
+                testResult.style.display = 'none';
+                
+                // Reiniciar selecciones y feedback
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                    option.hasBeenScored = false;
+                });
+                
+                document.querySelectorAll('.feedback').forEach(fb => {
+                    fb.style.display = 'none';
+                });
+                
+                // Mostrar primera pregunta
+                showQuestion(0);
+                questions.forEach(question => {
+                    question.style.display = 'block';
+                });
+            });
+        }
+        
+        // Descargar guía PDF
+        document.getElementById('download-guide').addEventListener('click', function(e) {
+            e.preventDefault();
+            // En un sitio real, esto descargaría un archivo PDF real
+            alert('En un sitio real, aquí se descargaría la guía en formato PDF. Actualmente, esta es solo una demostración.');
+        });
+    </script>
+</body>
